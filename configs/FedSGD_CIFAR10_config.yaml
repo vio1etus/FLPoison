@@ -1,0 +1,212 @@
+# This file serves as the configurations for the benchmarking experiments, including the basic configuration and the parameters for all attacks and defenses that are going to be tested. You can copy this file and modify it to run your own single attack and defense experiments.
+seed: 4 # seed for reproducibility
+# basic configuration
+epochs: 300 # global epochs
+algorithm: FedSGD # algorithm, FedSGD, FedAvg, FedOpt
+optimizer: SGD # optimizer for training
+momentum: 0.9
+weight_decay: 5.0e-4
+lr_scheduler: MultiStepLR # learning rate scheduler
+milestones: [0.5, 0.8] # milestones for learning rate scheduler
+num_clients: 20 # number of participating clients
+batch_size: 64 # batch_size
+learning_rate: 0.05 # clients' local learning rate
+model: resnet18 # simplecnn # model architecture
+dataset: CIFAR10 # dataset
+distribution: iid # data distribution
+im_iid_gamma: 0.01 # For class-imbalanced iid, smaller gamma, stronger imbalance, 0.5, 0.6 reference: centered clipping
+tail_cls_from: 4 # For class-imbalanced iid, the tail classes start from 4
+dirichlet_alpha: 0.5 # For non-iid, smaller alpha, stronger heterogeneity, normally use 0.1, 0.5, 0.9, 1
+cache_partition: False # whether to cache the partitioned client indices
+gpu_idx: [0] # Indices of GPU
+num_workers: 0
+record_time: False
+
+# general attack settings
+num_adv: 0.20 # the proportion (float < 1) or number (int>1) of adversaries
+
+attack: NoAttack
+defense: Mean
+
+attacks:
+    - attack: NoAttack
+    - attack: IPM
+      attack_params: # Parameters for attacks
+          scaling_factor: 0.5 # 0.5, 100
+          # attack_start_epoch: 11
+    - attack: ALIE
+      # attack_params:
+      #     attack_start_epoch: 41
+    - attack: Gaussian
+      attack_params:
+          noise_mean: 0
+          noise_std: 1
+    - attack: Mimic
+      attack_params:
+          choice: 0
+    - attack: MinMax
+      attack_params:
+          gamma_init: 10
+          stop_threshold: 1.0e-5 # !!YAML specification: for scientific notation, write the base number as a float (e.g. 1.0) and add the sign to the exponent (e.g. +1,-1), such as 1.0e+5
+    - attack: MinSum
+      attack_params:
+          gamma_init: 10
+          stop_threshold: 1.0e-5
+    - attack: FangAttack
+      attack_params:
+          stop_threshold: 1.0e-5
+    - attack: BadNets
+      attack_params:
+          trigger_size: 10
+          attack_model: "all2one" # all2one, all2all, targeted, random
+          poisoning_ratio: 0.32 # poisoning portion
+          target_label: 7 # The No. of target label for backdoored images
+          attack_strategy: continuous #  attack_strategy: ['single-shot', 'fixed-frequency','continuous'], `poison_frequency` for fixed-frequency
+          # attack_start_epoch: 21
+    - attack: BadNets_image
+      attack_params:
+          trigger_path: ./attackers/triggers/trigger_white.png # Trigger Path
+          trigger_size: 5 # Trigger Size
+          attack_model: "all2one"
+          poisoning_ratio: 0.32 # poisoning portion
+          target_label: 7 # The No. of target label for backdoored images
+          attack_strategy: continuous
+    - attack: LabelFlipping
+      attack_params:
+          attack_model: "targeted" # "targeted" will not affect by poisoning_ratio, because it will flip only the source labels in a batch
+          source_label: 3
+          target_label: 7
+          attack_strategy: "continuous"
+          # poisoning_ratio: 0.25 # poisoning portion
+    - attack: ModelReplacement
+      attack_params:
+          scaling_factor: 20 # estimated scaling factor, num_participants / global_lr
+          alpha: 0.5
+          attack_model": "all2one"
+          poisoning_ratio": 0.32
+          source_label: 2
+          target_label: 7
+          attack_strategy: "continuous"
+    - attack: DBA
+      attack_params:
+          attack_model: "all2one"
+          scaling_factor: 100
+          trigger_factor: [14, 2, 0]
+          poisoning_ratio: 0.32
+          source_label: 2
+          target_label: 7
+          attack_strategy: "continuous" # "fixed-frequency"
+          # poison_frequency: 10
+          # attack_start_epoch: 150
+    - attack: EdgeCase
+      attack_params:
+          poisoning_ratio: 0.5
+          epsilon: 0.25 # For PGD with replacement, 0.25 for mnist, 0.083 for cifar10
+          projection_type: "l_2"
+          l2_proj_frequency: 1
+          scaling_attack: True
+          scaling_factor: 50
+          target_label: 1 # mnist 1, cifar10 9
+    - attack: Neurotoxin
+      attack_params:
+          num_sample: 64
+          topk_ratio: 0.1
+          norm_threshold: 0.2
+          attack_model: "all2one"
+          poisoning_ratio: 0.32
+          source_label: 1
+          target_label: 6
+          attack_strategy: "continuous"
+    - attack: AlterMin
+      attack_params:
+          attack_model: targeted
+          poisoned_sample_cnt: 1
+          boosting_factor: 2
+          rho: 1.0e-4
+          benign_epochs: 10
+          malicous_epochs: 5
+          source_label: 3
+          target_label: 7
+
+defenses:
+    - defense: Mean
+    - defense: SimpleClustering
+    - defense: Krum
+      defense_params:
+          enable_check: False
+    - defense: MultiKrum
+      defense_params:
+          avg_percentage: 0.2
+          enable_check: False
+    - defense: TrimmedMean
+      defense_params:
+          beta: 0.1
+    - defense: Median
+    - defense: Bulyan
+      defense_params:
+          enable_check: False
+    - defense: RFA
+      defense_params:
+          num_iters: 3
+          epsilon: 1.0e-6
+    - defense: FLTrust
+      defense_params:
+          num_sample: 100
+    - defense: CenteredClipping
+      defense_params:
+          norm_threshold: 100
+          num_iters: 1
+    - defense: DnC
+      defense_params:
+          subsample_frac: 0.2
+          num_iters: 5
+          fliter_frac: 1.0
+    - defense: Bucketing
+      defense_params:
+          bucket_size: 2
+          selected_aggregator: "Krum"
+    - defense: SignGuard
+      defense_params:
+          lower_bound: 0.1
+          upper_bound: 3.0
+          selection_fraction: 0.1
+          clustering: "MeanShift"
+          random_seed: 2
+    - defense: LASA
+      defense_params:
+          norm_bound: 1
+          sign_bound: 1
+          sparsity: 0.3
+    - defense: Auror
+      defense_params: # Parameters for defenses
+          indicative_threshold: 7.0e-5
+          indicative_find_epoch: 10
+    - defense: FoolsGold
+      defense_params:
+          epsilon: 1.0e-5
+          topk_ratio: 0.1
+    - defense: Bucketing
+      defense_params:
+          bucket_size: 2
+          selected_aggregator: Krum
+    - defense: NormClipping # weak differential privacy=norm clipping + differential privacy
+      defense_params:
+          weakDP: True
+          norm_threshold: 3
+          noise_mean: 0
+          noise_std: 0.002
+    - defense: CRFL
+      defense_params:
+          norm_threshold: 3
+          noise_mean: 0
+          noise_std: 0.001
+    - defense: DeepSight
+      defense_params:
+          num_seeds: 3
+          threshold_factor: 0.01
+          num_samples: 20000
+          tau: 0.33
+          epsilon: 1.0e-6
+    - defense: FLAME
+      defense_params:
+          gamma: 1.2e-5

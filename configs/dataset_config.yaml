@@ -1,0 +1,61 @@
+# This file serves as the configuration file for dataset-specific parameters, including their statistics and proper lr tested for each dataset to converge. Normally, you don't need to change this file.
+
+# [MNIST](https://yann.lecun.com/exdb/mnist/)
+MNIST:
+    num_training_sample: 60000
+    num_channels: 1
+    num_classes: 10
+    mean: (0.1307,)
+    std: (0.3081,)
+
+# [zalandoresearch/fashion-mnist: A MNIST-like fashion product database. Benchmark](https://github.com/zalandoresearch/fashion-mnist)
+FashionMNIST:
+    num_training_sample: 60000
+    num_channels: 1
+    num_classes: 10
+    mean: (0.2859,)
+    std: (0.3530,)
+
+# [CIFAR-10 and CIFAR-100 datasets](https://www.cs.toronto.edu/~kriz/cifar.html)
+CIFAR10:
+    num_training_sample: 50000
+    num_channels: 3
+    num_classes: 10
+    mean: (0.4914, 0.4822, 0.4465)
+    std: (0.2470, 0.243, 0.261)
+
+# [[1810.03505] CINIC-10 is not ImageNet or CIFAR-10](https://arxiv.org/abs/1810.03505), which is A drop-in replacement for CIFAR-10.
+# https://github.com/BayesWatch/cinic-10
+CINIC10:
+    num_training_sample: 90000 # only train set
+    num_channels: 3
+    num_classes: 10
+    mean: (0.47889522, 0.47227842, 0.43047404)
+    std: (0.24205776, 0.23828046, 0.25874835)
+
+# [CIFAR-10 and CIFAR-100 datasets](https://www.cs.toronto.edu/~kriz/cifar.html)
+CIFAR100:
+    num_training_sample: 50000
+    num_channels: 3
+    num_classes: 100
+    mean: (0.5071, 0.4865, 0.4409)
+    std: (0.2673, 0.2564, 0.2762)
+
+# [The EMNIST Dataset | NIST](https://www.nist.gov/itl/products-and-services/emnist-dataset)
+EMNIST:
+    num_training_sample: 240000
+    num_channels: 1
+    num_classes: 10
+    mean: (0.1307,)
+    std: (0.3081,)
+
+FEMNIST:
+    num_training_sample: 817851
+    num_channels: 1
+    num_classes: 62
+    mean: (226.83,)
+    std: (88.94,)
+TinyImageNet:
+    num_training_sample: 100000
+    num_channels: 3
+    num_classes: 200
