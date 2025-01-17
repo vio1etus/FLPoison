@@ -14,10 +14,10 @@ PyTorch's implementation of poisoning attacks and defenses in federated learning
 
 |     **Category**      |                                                    **Details**                                                    |
 | :-------------------: | :---------------------------------------------------------------------------------------------------------------: |
-|   **FL Algorithms**   |                                              FedAvg, FedSGD, FedOpt                                               |
+|   **FL Algorithms**   |                                              FedAvg, FedSGD, FedOpt(see [fl/algorithms](fl/algorithms))                                               |
 | **Data Distribution** | Balanced IID, Class-imbalanced IID, Dirichlet-based Non-IID (see [data_utils.py](datapreprocessor/data_utils.py)) |
 |     **Datasets**      |   MNIST, FashionMNIST, EMNIST, CIFAR10, CINIC10, CIFAR100 (see [dataset_config.py](configs/dataset_config.py))    |
-|      **Models**       |                                          Logistic Regression, SimpleCNN                                           |
+|      **Models**       |                         Logistic Regression, SimpleCNN, LeNet5, ResNet-series, VGG-series                         |
 
 Supported datasets and models pairs see [datamodel.pdf](docs/datamodel.pdf)
 
