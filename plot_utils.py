@@ -46,8 +46,8 @@ def plot_accuracy(filename):
 
 
 def plot_label_distribution(train_data, client_idcs, n_clients, dataset, distribution):
-    titleid_dict = {"iid": "Balanced IID", "class-imbalanced_iid": "Class-imbalanced IID",
-                    "non-iid": "Non-IID (Dirichlet)"}
+    titleid_dict = {"iid": "Balanced_IID", "class-imbalanced_iid": "Class-imbalanced_IID",
+                    "non-iid": "Quantity-imbalanced_Dirichlet_Non-IID", "pat": "Balanced_Pathological_Non-IID", "imbalanced_pat": "Quantity-imbalanced_Pathological_Non-IID"}
     dataset = "CIFAR-10" if dataset == "CIFAR10" else dataset
     title_id = dataset + " " + titleid_dict[distribution]
     xy_type = "client_label"  # 'label_client'
@@ -83,10 +83,10 @@ def plot_label_distribution(train_data, client_idcs, n_clients, dataset, distrib
     plt.title(f"{title_id} Label Distribution Across Clients", fontsize=20)
     rotation_degree = 45 if n_clients > 30 else 0
     plt.xticks(rotation=rotation_degree, fontsize=16)
-    plt.legend(loc="best", prop={'size': 12})
+    plt.legend(loc="best", prop={'size': 12}).set_zorder(100)
     plt.grid(linestyle='--', axis='y', zorder=0)
     plt.tight_layout()
-    plt.savefig(f"./logs/{title_id}_label_distribution.pdf",
+    plt.savefig(f"./logs/{title_id}_label_dtb.pdf",
                 format='pdf', bbox_inches='tight')
 
 
