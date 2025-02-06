@@ -2,7 +2,7 @@
 
 ![Python Versions](https://img.shields.io/badge/Python-3.6%2B-blue)
 ![Last Commit](https://img.shields.io/github/last-commit/vio1etus/FLPoison)
-[![LICENSE](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](./LICENSE "Apache License 2.0")
+[![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
 <!-- ![Repo Size](https://img.shields.io/github/repo-size/vio1etus/FLPoison) -->
 
@@ -12,12 +12,12 @@ Check the [Wiki](../../wiki#getting-started) to get started with the project.
 
 PyTorch's implementation of poisoning attacks and defenses in federated learning.
 
-|     **Category**      |                                                    **Details**                                                    |
-| :-------------------: | :---------------------------------------------------------------------------------------------------------------: |
-|   **FL Algorithms**   |                                              FedAvg, FedSGD, FedOpt(see [fl/algorithms](fl/algorithms))                                               |
-| **Data Distribution** | Balanced IID, Class-imbalanced IID, Dirichlet-based Non-IID (see [data_utils.py](datapreprocessor/data_utils.py)) |
-|     **Datasets**      |   MNIST, FashionMNIST, EMNIST, CIFAR10, CINIC10, CIFAR100 (see [dataset_config.py](configs/dataset_config.py))    |
-|      **Models**       |                         Logistic Regression, SimpleCNN, LeNet5, ResNet-series, VGG-series                         |
+|     **Category**      |                                                                                      **Details**                                                                                       |
+| :-------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+|   **FL Algorithms**   |                                                               FedAvg, FedSGD, FedOpt(see [fl/algorithms](fl/algorithms))                                                               |
+| **Data Distribution** | Balanced IID, Class-imbalanced IID, Quantity-imbalanced Dirichlet Non-IID, (Quantity-Balanced\|-Imbalanced) Pathological Non-IID (see [data_utils.py](datapreprocessor/data_utils.py)) |
+|     **Datasets**      |                                      MNIST, FashionMNIST, EMNIST, CIFAR10, CINIC10, CIFAR100 (see [dataset_config.py](configs/dataset_config.py))                                      |
+|      **Models**       |                                                           Logistic Regression, SimpleCNN, LeNet5, ResNet-series, VGG-series                                                            |
 
 Supported datasets and models pairs see [datamodel.pdf](docs/datamodel.pdf)
 
@@ -53,7 +53,6 @@ Data poisoning attacks here, mainly targeted attacks, refer to attacks aimed at 
 
 ### Defenses Against DPAs
 
-<!-- | FLDetector | [fldetector.py](aggregators/fldetector.py) | [FLDetector: Defending Federated Learning Against Model Poisoning Attacks via Detecting Malicious Clients](https://arxiv.org/abs/2207.09209) - KDD '22 | FedSGD |FedOpt, [FedOpt, FedAvg]| -->
 <!-- prettier-ignore -->
 | Name | Source File | Paper | Base Algorithm | Applicable Algorithms |
 |:---:|:---:|:---:|:---:|:---:|
@@ -64,7 +63,7 @@ Data poisoning attacks here, mainly targeted attacks, refer to attacks aimed at 
 | FoolsGold | [foolsgold.py](aggregators/foolsgold.py) | [The Limitations of Federated Learning in Sybil Settings](https://www.usenix.org/conference/raid2020/presentation/fung) - RAID '20 | FedSGD |FedSGD, [FedOpt, FedAvg]|
 | Auror | [auror.py](aggregators/auror.py) | [Auror: Defending against poisoning attacks in collaborative deep learning systems](https://dl.acm.org/doi/10.1145/2991079.2991125) - ACSAC '16 | FedSGD |FedSGD, [FedOpt, FedAvg]|
 
-## Model Poisoning Attacks (MPAs)
+### Model Poisoning Attacks (MPAs)
 
 Model poisoning attacks here, main untargeted attacks, refer to the attacks aimed at **preventing convergence** of the model, thus affecting the model's performance.
 
@@ -82,11 +81,11 @@ Model poisoning attacks here, main untargeted attacks, refer to the attacks aime
 
 ### Defenses Against MPAs
 
-<!-- -   [ ] [FLDetector: Defending Federated Learning Against Model Poisoning Attacks via Detecting Malicious Clients](https://arxiv.org/abs/2207.09209) - KDD '22 |FedSGD,FedOpt|-->
 <!-- prettier-ignore -->
 | Name | Source File | Paper |  Base Algorithm | Applicable Algorithms |
 |:---:|:---:|:---:|:---:|:---:|
 | LASA |[lasa.py](aggregators/lasa.py)|[Achieving Byzantine-Resilient Federated Learning via Layer-Adaptive Sparsified Model Aggregation](https://arxiv.org/pdf/2409.01435) - WACV '25 | FedOpt | FedSGD, [FedOpt, FedAvg] |
+| FLDetector | [fldetector.py](aggregators/fldetector.py) | [FLDetector: Defending Federated Learning Against Model Poisoning Attacks via Detecting Malicious Clients](https://arxiv.org/abs/2207.09209) - KDD '22 | FedSGD |FedOpt, [FedOpt, FedAvg]|
 | SignGuard | [signguard.py](aggregators/signguard.py) | [Byzantine-robust Federated Learning through Collaborative Malicious Gradient Filtering](https://arxiv.org/abs/2109.05872) - ICDCS '22 | FedSGD |FedSGD, [FedOpt, FedAvg]|
 | Bucketing | [bucketing.py](aggregators/bucketing.py) | [Byzantine-Robust Learning on Heterogeneous Datasets via Bucketing](https://openreview.net/forum?id=jXKKDEi5vJt) - ICLR '22 | FedSGD | FedSGD, [FedOpt, FedAvg] |
 | DnC | [dnc.py](aggregators/dnc.py) | [Manipulating the Byzantine: Optimizing Model Poisoning Attacks and Defenses for Federated Learning](https://www.ndss-symposium.org/ndss-paper/manipulating-the-byzantine-optimizing-model-poisoning-attacks-and-defenses-for-federated-learning/) - NDSS '21 | FedSGD |FedSGD, [FedOpt, FedAvg]|

@@ -32,7 +32,7 @@ def read_args():
                         help='optimizer for training')
     parser.add_argument('-lr_scheduler', '--lr_scheduler', type=str,
                         help='lr_scheduler for training')
-    parser.add_argument('-milestones', '--milestones', type=float, nargs="+",
+    parser.add_argument('-milestones', '--milestones', type=int, nargs="+",
                         help='milestone for learning rate scheduler')
     parser.add_argument('-num_clients', '--num_clients', type=int,
                         help='number of participating clients')
@@ -44,9 +44,9 @@ def read_args():
                         help='local global_epoch')
     parser.add_argument('-model', '--model', choices=all_models)
     parser.add_argument('-data', '--dataset',
-                        choices=['MNIST', 'FashionMNIST', 'CIFAR10'])
+                        choices=['MNIST', 'FashionMNIST', 'CIFAR10', 'CINIC10', 'CIFAR100', 'EMNIST'])
     parser.add_argument('-dtb', '--distribution',
-                        choices=['iid', 'class-imbalanced_iid', 'non-iid'])
+                        choices=['iid', 'class-imbalanced_iid', 'non-iid', 'pat', 'imbalanced_pat'])
     parser.add_argument('-dirichlet_alpha', '--dirichlet_alpha', type=float,
                         help='smaller alpha for drichlet distribution, stronger heterogeneity, 0.1 0.5 1 5 10, normally use 0.5')
     parser.add_argument('-im_iid_gamma', '--im_iid_gamma', type=float,
@@ -174,8 +174,15 @@ def single_preprocess(args):
         setattr(args, key, value)
 
     # preprocess the arguments
-    args.device = torch.device(
-        f'cuda:{args.gpu_idx[0]}' if torch.cuda.is_available() else 'cpu')
+    # Priority: CUDA > MPS (MacOS) > CPU
+    if torch.cuda.is_available():
+        device = torch.device(f"cuda:{args.gpu_idx[0]}")
+    elif torch.backends.mps.is_available():
+        device = torch.device("mps")
+    else:
+        device = torch.device("cpu")
+    print(f"Using device: {device}")
+    args.device = device
     args.num_adv = frac_or_int_to_int(args.num_adv, args.num_clients)
 
     # ensure attack_params and defense_params attributes exist. when there is no params, set it to None.
