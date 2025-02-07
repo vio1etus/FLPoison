@@ -108,5 +108,13 @@ Bug reports, feature suggestions, and code contributions are welcome. Please ope
 If you are using FLPoison for your work, please cite our paper with:
 
 ```
-
+@misc{sokflpoison,
+      title={SoK: Benchmarking Poisoning Attacks and Defenses in Federated Learning}, 
+      author={Heyi Zhang and Yule Liu and Xinlei He and Jun Wu and Tianshuo Cong and Xinyi Huang},
+      year={2025},
+      eprint={2502.03801},
+      archivePrefix={arXiv},
+      primaryClass={cs.CR},
+      url={https://arxiv.org/abs/2502.03801}, 
+}
 ```
