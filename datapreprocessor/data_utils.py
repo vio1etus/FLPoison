@@ -26,7 +26,7 @@ def load_data(args):
     elif args.dataset == "CINIC10":
         train_dataset = CINIC10(root=data_directory, train=True, download=True,
                                 transform=trans)
-        test_dataset = CINIC10(root=data_directory, train=True, download=True,
+        test_dataset = CINIC10(root=data_directory, train=False, download=True,
                                transform=test_trans)
     else:
         raise ValueError("Dataset not implemented yet")
