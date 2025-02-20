@@ -1,7 +1,7 @@
 # Welcome to FLPoison
 
-![Framework](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 ![Python Versions](https://img.shields.io/badge/Python-3.6%2B-blue)
+![Framework](https://img.shields.io/badge/Pytorch-orange)
 ![Last Commit](https://img.shields.io/github/last-commit/vio1etus/FLPoison)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
