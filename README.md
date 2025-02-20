@@ -1,6 +1,7 @@
 # Welcome to FLPoison
 
 ![Python Versions](https://img.shields.io/badge/Python-3.6%2B-blue)
+![Framework](https://img.shields.io/badge/PyTorch-EE4C2C?style=for-the-badge&logo=pytorch&logoColor=white)
 ![Last Commit](https://img.shields.io/github/last-commit/vio1etus/FLPoison)
 [![License: GPL v2](https://img.shields.io/badge/License-GPL%20v2-blue.svg)](https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html)
 
@@ -16,7 +17,7 @@ PyTorch's implementation of poisoning attacks and defenses in federated learning
 | :-------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
 |   **FL Algorithms**   |                                                               FedAvg, FedSGD, FedOpt(see [fl/algorithms](fl/algorithms))                                                               |
 | **Data Distribution** | Balanced IID, Class-imbalanced IID, Quantity-imbalanced Dirichlet Non-IID, (Quantity-Balanced\|-Imbalanced) Pathological Non-IID (see [data_utils.py](datapreprocessor/data_utils.py)) |
-|     **Datasets**      |                                      MNIST, FashionMNIST, EMNIST, CIFAR10, CINIC10, CIFAR100 (see [dataset_config.yaml](configs/dataset_config.yaml))                                      |
+|     **Datasets**      |                                    MNIST, FashionMNIST, EMNIST, CIFAR10, CINIC10, CIFAR100 (see [dataset_config.yaml](configs/dataset_config.yaml))                                    |
 |      **Models**       |                                                           Logistic Regression, SimpleCNN, LeNet5, ResNet-series, VGG-series                                                            |
 
 Supported datasets and models pairs see [datamodel.pdf](docs/datamodel.pdf)
@@ -109,12 +110,12 @@ If you are using FLPoison for your work, please cite our paper with:
 
 ```
 @misc{sokflpoison,
-      title={SoK: Benchmarking Poisoning Attacks and Defenses in Federated Learning}, 
+      title={SoK: Benchmarking Poisoning Attacks and Defenses in Federated Learning},
       author={Heyi Zhang and Yule Liu and Xinlei He and Jun Wu and Tianshuo Cong and Xinyi Huang},
       year={2025},
       eprint={2502.03801},
       archivePrefix={arXiv},
       primaryClass={cs.CR},
-      url={https://arxiv.org/abs/2502.03801}, 
+      url={https://arxiv.org/abs/2502.03801},
 }
 ```
