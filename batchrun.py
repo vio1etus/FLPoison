@@ -58,7 +58,13 @@ def get_configs(dataset, algorithm, distribution, defense):
                     "lr": 0.002
                 }
             }
-        }
+        },
+        "TinyImageNet": {
+            "FedSGD": {"epoch": 150, "lr": 0.05}
+        },
+        "CHMNIST": {
+            "FedSGD": {"epoch": 150, "lr": 0.001}
+        },
     }
 
     dataset_params = params.get(dataset, {})

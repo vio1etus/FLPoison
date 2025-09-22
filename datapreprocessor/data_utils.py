@@ -6,7 +6,9 @@ from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import datasets, transforms
 from datapreprocessor.cinic10 import CINIC10
+from datapreprocessor.chmnist import CHMNIST
 from plot_utils import plot_label_distribution
+from datapreprocessor.tinyimagenet import TinyImageNet
 
 
 def load_data(args):
@@ -23,10 +25,13 @@ def load_data(args):
                                                          download=True, transform=trans)
         test_dataset = eval(f"datasets.{args.dataset}")(root=data_directory, train=False,
                                                         download=True, transform=test_trans)
-    elif args.dataset == "CINIC10":
-        train_dataset = CINIC10(root=data_directory, train=True, download=True,
+    elif args.dataset in ["CHMNIST", "CINIC10", "TinyImageNet"]:
+        """
+        dataset in custom datasets, such as CHMNIST, CINIC10, TinyImageNet
+        """
+        train_dataset = eval(args.dataset)(root=data_directory, train=True, download=True,
                                 transform=trans)
-        test_dataset = CINIC10(root=data_directory, train=False, download=True,
+        test_dataset = eval(args.dataset)(root=data_directory, train=False, download=True,
                                transform=test_trans)
     else:
         raise ValueError("Dataset not implemented yet")

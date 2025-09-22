@@ -49,13 +49,29 @@ EMNIST:
     mean: (0.1307,)
     std: (0.3081,)
 
+# [TalwalkarLab/leaf: Leaf: A Benchmark for Federated Settings](https://github.com/TalwalkarLab/leaf)
 FEMNIST:
     num_training_sample: 817851
     num_channels: 1
     num_classes: 62
     mean: (226.83,)
     std: (88.94,)
+
+# [Colorectal Histology-MNIST- Collection of textures in colorectal cancer histology](https://zenodo.org/records/53169#.W6HwwP4zbOQ)
+CHMNIST:
+    num_training_sample: 4000
+    num_channels: 3
+    num_classes: 8
+    mean: (0.6497, 0.4725, 0.5850)
+    std: (0.2558, 0.3272, 0.2673)
+    num_dims: 150
+
+
+# [Tiny ImageNet Visual Recognition Challenge-cs231n.stanford](https://cs231n.stanford.edu/reports/2015/pdfs/yle_project.pdf)
 TinyImageNet:
     num_training_sample: 100000
     num_channels: 3
     num_classes: 200
+    num_dims: 64
+    mean: (0.485, 0.456, 0.406)
+    std: (0.229, 0.224, 0.225)
