@@ -195,7 +195,7 @@ class ARDIS():
 
             except Exception as e:
                 raise Exception(
-                    f"Extraction failed: Please install `rarfile` and `unrar` using `conda install rarfile unrar` or `pip install rarfile unrar`. If the issue persists, ensure `unrar` is installed on your system with `sudo apt install unrar` for Linux, `sud brew install unrar` for MacOS.\n Exception: {e}")
+                    f"Extraction failed: Please install `rarfile` and `unrar` using `pip install rarfile unrar`. If the issue persists, ensure `unrar` is installed on your system with `sudo apt install unrar` for Linux, `sudo brew install unrar` for MacOS.\n Exception: {e}")
             else:  # no Exception, that is, the extraction is successful
                 # remove the downloaded package if the extraction is successful
                 os.remove(os.path.join(self.data_path, raw_filename))
